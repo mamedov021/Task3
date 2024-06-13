@@ -5,7 +5,7 @@
     {
         public int Id { get; set; }
         public byte[] Data { get; set; }
-        public int productId { get; set; }
+        public int ProductId { get; set; }
         public bool IsDeleted { get; set; }
 
     }
