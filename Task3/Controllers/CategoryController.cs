@@ -34,18 +34,16 @@ namespace Task3.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAll() {
+        public async Task<IActionResult> GetAll() {
 
             var response = _categoryService.GetAll();
 
-            if (response.IsSuccess)
-                return Ok(response); 
-            else
-                return NotFound(response);
+        return Ok(response);
         }
 
 
         [HttpDelete("{id}")]
+       
         public  IActionResult Delete(int id)
         {
             var response =  _categoryService.Delete(id);

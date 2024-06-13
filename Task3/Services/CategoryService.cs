@@ -24,7 +24,7 @@ namespace Task3.Services
 
         public   ResponseBaseColumn Delete(int id)
         {
-            var category =    _categoryRepository.GetById(id);
+            var category =  _categoryRepository.GetById(id).Result;
 
             if (category != null)
             {
@@ -47,24 +47,22 @@ namespace Task3.Services
                 Status = "404"
             };
         }
-        public  ResponseBaseColumn GetAll()
-         {
-            var responceColumns = new ResponseBaseColumn();
-            var categories = _categoryRepository.GetAll;
+        public ResponseBaseColumn GetAll()
+        {
+            
+            var categories = _categoryRepository.GetAll();
+            var responceColumns = new ResponseBaseColumn
+            {
+                IsSuccess = true,
+                Message = "successfully",
+                Status = "200",
+                Data = categories.Result,
+            };
 
-            foreach (var category in categories) {
-                responceColumns.Add(new ResponseBaseColumn
-                {
-                    Data = category,
-                    IsSuccess = true,
-                    Message = "successfully",
-                    Status = "200" 
-                }); 
-            }
             return responceColumns;
-         }
+        }
 
-        
+
         public ResponseBaseColumn GetById(int id)
         {
             var category = _categoryRepository.GetById( id);
