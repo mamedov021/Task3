@@ -28,15 +28,15 @@ namespace Task3.Repositories
                                 VALUES
                                 (
                                  :Name,
-                                  false
+                                  :isDelete
                                 ) ";
 
-            _connection.Execute(sql, new {categoryRequestDto.Name}   );
+            _connection.Execute(sql, new { categoryRequestDto.Name, isDelete = false }   );
 
             var category = new Category
             {
                 Name = categoryRequestDto.Name,
-                IsDeleted = false
+               // IsDeleted = false
 
             };
 

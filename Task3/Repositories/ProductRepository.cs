@@ -57,13 +57,13 @@ namespace Task3.Repositories
         }
 
  
-        public async Task<Product> GetById(int Id)
+        public  async Task<Product> GetById(int Id)
         {
             var sql = @"SELECT * FROM Product WHERE Id = :Id";
-            return await _connection.QueryFirstOrDefaultAsync<Product>(sql, new { Id });
+            return  await _connection.QueryFirstOrDefaultAsync<Product>(sql, new { Id });
         }
+       
 
- 
         public async Task Update(int Id, Product product)
         {
             var sql = @"UPDATE Product SET Name = :Name, Price =: Price, Category_id =: CategoryID, Description =: Description, is_warranty =: IsWarranty    WHERE Id = @Id";

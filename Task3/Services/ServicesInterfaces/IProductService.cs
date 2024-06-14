@@ -6,7 +6,7 @@ namespace Task3.Services.ServicesInterfaces
     public interface IProductService
     {
         ResponseBaseColumn GetAll();
-        ResponseBaseColumn GetById(int id);
+        Task <ResponseBaseColumn> GetById(int id);
 
         ResponseBaseColumn Add(ProductRequestDto productRequestDto); 
 

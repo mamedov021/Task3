@@ -10,5 +10,7 @@ public class ProductRequestDto
     public int CatogeryId { get; set; }
     public string Description { get; set; } 
     public bool IsWarranty { get; set; }
+    public List<IFormFile> Photo { get; set; }
+
 }
  
