@@ -20,24 +20,17 @@ namespace Task3.Repositories
 
         public Category Add(CategoryRequestDto categoryRequestDto)
         {
-            var sql = $@"INSERT INTO  Category
-                                ( 
-                                 Name,
-                                 isDelete
-                                 )
+            var sql = @"INSERT INTO  category
+                                ( Name, ""isDeleted"" )
                                 VALUES
-                                (
-                                 :Name,
-                                  false
-                                ) ";
+                                ( :Name, :IsDeleted )";
 
-            _connection.Execute(sql, new {categoryRequestDto.Name}   );
+            _connection.Execute(sql, new { categoryRequestDto.Name, categoryRequestDto.IsDeleted });
 
             var category = new Category
             {
                 Name = categoryRequestDto.Name,
-                IsDeleted = false
-
+                IsDeleted = categoryRequestDto.IsDeleted
             };
 
             return category;
@@ -45,7 +38,7 @@ namespace Task3.Repositories
          
         public async Task Delete(int Id)
         {
-            var sql = "DELETE FROM Category WHERE Id = :Id";
+            var sql = @"DELETE FROM Category WHERE Id = :Id";
             await _connection.ExecuteAsync(sql, new { Id });
 
         }

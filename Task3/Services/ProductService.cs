@@ -36,6 +36,8 @@ namespace Task3.Services
                 Description = productRequestDto.Description,    
                 CatogeryId = productRequestDto.CatogeryId,
                 IsWarranty=productRequestDto.IsWarranty,
+               // Photo = productRequestDto.Photo,
+
  
 
 
@@ -94,9 +96,9 @@ namespace Task3.Services
         }
 
       
-        public ResponseBaseColumn GetById(int id)
+        public async Task< ResponseBaseColumn> GetById(int id)
         {
-           var product = _productRepository.GetById(id); 
+           var product =await _productRepository.GetById(id); 
             if (product != null) 
             {
                 return new ResponseBaseColumn

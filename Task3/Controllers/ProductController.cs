@@ -18,10 +18,10 @@ public class ProductController : Controller
     [HttpGet("{id}")]
     public IActionResult GetById(int id)
     {
-        var response = _productService.GetById(id);
+        var response =  _productService.GetById(id);
 
-        if (response.IsSuccess)
-            return Ok(response);
+        if (response.Result.IsSuccess)
+            return Ok(response.Result);
         else
             return NotFound(response);
 
@@ -54,7 +54,7 @@ public class ProductController : Controller
     }
 
     [HttpPost]
-    public IActionResult Add(ProductRequestDto productRequestDto)
+    public IActionResult Add([FromForm]ProductRequestDto productRequestDto)
     {
         var response = _productService.Add(productRequestDto);
         if (response.IsSuccess)

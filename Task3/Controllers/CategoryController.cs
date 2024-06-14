@@ -17,7 +17,7 @@ namespace Task3.Controllers
         public CategoryController(ICategoryService categoryService)
         {
             _categoryService = categoryService;
-            // _connection = connection;
+            // _connection = connection; 
         }
 
 
