@@ -8,8 +8,7 @@ namespace Task3.Repositories.RepositoriesInterfaces
     {
 
         Task<Product> Add(Product product);
-        Task Delete(int Id);
-
+        Task Delete(int Id); 
         Task<List<Product>> GetAll();
         Task<Product> GetById(int Id); 
         Task Update(int Id, Product product);

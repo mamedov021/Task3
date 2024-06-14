@@ -4,9 +4,9 @@ namespace Task3.Repositories.RepositoriesInterfaces
 {
     public interface ICategoryRepository
     {
-        Task<List<Category>> GetAll();
-        Task<Category> GetById(int Id);
-        Task<Category> Add(Category category);
+        List<Category> GetAll();
+        Category GetById(int Id);
+        Category Add(CategoryRequestDto categoryRequestDto);
         Task Delete(int Id);
         Task Update(int Id, Category category);
         

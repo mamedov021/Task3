@@ -17,14 +17,41 @@ namespace Task3.Services
             _categoryRepository = categoryRepository;
         }
 
-        public ResponseBaseColumn Add(CategoryResponseDto categoryResponseDto)
-        {
-            throw new NotImplementedException();
+       
+        public  ResponseBaseColumn Add(CategoryRequestDto categoryRequestDto)
+        {  
+            if (categoryRequestDto == null )
+            {
+                return new ResponseBaseColumn
+                {
+                    Data = null,
+                    IsSuccess = false,
+                    Message = "Invalid category data",
+                    Status = "400"
+                };
+            }
+
+
+            var category = new Category
+            {
+                Name = categoryRequestDto.Name,
+                 
+            }; 
+             _categoryRepository.Add(categoryRequestDto);
+
+            return new ResponseBaseColumn
+            {
+                Data = category,
+                IsSuccess = true,
+                Message = " successfully",
+                Status = "200"
+            };
         }
 
-        public   ResponseBaseColumn Delete(int id)
+
+        public ResponseBaseColumn Delete(int id)
         {
-            var category =  _categoryRepository.GetById(id).Result;
+            var category =  _categoryRepository.GetById(id);
 
             if (category != null)
             {
@@ -56,7 +83,7 @@ namespace Task3.Services
                 IsSuccess = true,
                 Message = "successfully",
                 Status = "200",
-                Data = categories.Result,
+                Data = categories
             };
 
             return responceColumns;
@@ -66,6 +93,7 @@ namespace Task3.Services
         public ResponseBaseColumn GetById(int id)
         {
             var category = _categoryRepository.GetById( id);
+
             if (category != null)
             {
                 return new ResponseBaseColumn
@@ -91,9 +119,32 @@ namespace Task3.Services
             }
         }
 
-        public ResponseBaseColumn Update(int id, CategoryResponseDto categoryResponseDto)
+        public ResponseBaseColumn Update(int id, CategoryRequestDto categoryRequestDto)
         {
-            throw new NotImplementedException();
+            var category = _categoryRepository.GetById(id);
+            if (category != null)
+            {   
+                
+                category.Name = categoryRequestDto.Name;   
+ 
+                 _categoryRepository.Update(id, category);
+
+                return new ResponseBaseColumn
+                {
+                    Data = category,
+                    IsSuccess = true,
+                    Message = "Update successfully",
+                    Status = "200"
+                };
+            }
+
+            return new ResponseBaseColumn
+            {
+                Data = null,
+                IsSuccess = false,
+                Message = "Not found",
+                Status = "404"
+            };
         }
 
       

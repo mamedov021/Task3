@@ -9,10 +9,10 @@ namespace Task3.Services.ServicesInterfaces
         ResponseBaseColumn GetAll();
         ResponseBaseColumn GetById(int id);
 
-        ResponseBaseColumn Add(CategoryResponseDto categoryResponseDto);
+        ResponseBaseColumn Add(CategoryRequestDto categoryRequestDto);
         ResponseBaseColumn Delete(int id);
-        ResponseBaseColumn Update(int id, CategoryResponseDto categoryResponseDto);
- 
+        ResponseBaseColumn Update(int id, CategoryRequestDto categoryRequestDto);
+        
 
     }
 }

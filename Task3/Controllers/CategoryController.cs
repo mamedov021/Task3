@@ -13,40 +13,45 @@ namespace Task3.Controllers
 
     {
         //private readonly NpgsqlConnection _connection;
-        private readonly ICategoryService _categoryService; 
+        private readonly ICategoryService _categoryService;
         public CategoryController(ICategoryService categoryService)
         {
             _categoryService = categoryService;
-           // _connection = connection;
+            // _connection = connection;
         }
 
 
-        [HttpGet("{id}")] 
+        [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
             var response = _categoryService.GetById(id);
 
             if (response.IsSuccess)
-                 return Ok(response);
+                return Ok(response);
             else
-                 return NotFound(response);
-            
+                return NotFound(response);
+
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll() {
+        public IActionResult GetAll() {
 
             var response = _categoryService.GetAll();
 
-        return Ok(response);
+
+            if (response.IsSuccess)
+                return Ok(response);
+            else
+                return NotFound(response);
+
         }
 
 
         [HttpDelete("{id}")]
-       
-        public  IActionResult Delete(int id)
+
+        public IActionResult Delete(int id)
         {
-            var response =  _categoryService.Delete(id);
+            var response = _categoryService.Delete(id);
 
             if (response.IsSuccess)
                 return Ok(response);
@@ -54,6 +59,30 @@ namespace Task3.Controllers
                 return NotFound(response);
         }
 
+
+        [HttpPost]
+        public IActionResult Add(CategoryRequestDto categoryRequestDto) {
+            var response = _categoryService.Add(categoryRequestDto);
+            if (response.IsSuccess)
+                return Ok(response);
+            else
+                return NotFound(response);
+
+        }
+        [HttpPut("{id}")]
+        public IActionResult Update(int id, CategoryRequestDto categoryRequestDto)
+        {
+
+            var response = _categoryService.Update(id, categoryRequestDto);
+
+            if (response.IsSuccess)
+                return Ok(response);
+            else
+                return NotFound(response);
+
+        }
+
+        
 
 
 

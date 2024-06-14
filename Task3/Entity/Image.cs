@@ -7,6 +7,7 @@
         public byte[] Data { get; set; }
         public int ProductId { get; set; }
         public bool IsDeleted { get; set; }
+     //   public IFormFile Photo { get; set; }
 
     }
 }

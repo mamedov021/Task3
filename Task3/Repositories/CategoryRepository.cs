@@ -10,32 +10,39 @@ namespace Task3.Repositories
     public class CategoryRepository : ICategoryRepository
     {
         private readonly NpgsqlConnection _connection;
- 
+
 
         public CategoryRepository(NpgsqlConnection connection)
         {
-          _connection = connection;
+            _connection = connection;
 
         }
 
-        public async Task<Category> Add(Category category)
+        public Category Add(CategoryRequestDto categoryRequestDto)
         {
-            var sql = $@"INSERT INTO [Category]
+            var sql = $@"INSERT INTO  Category
                                 ( 
-                                 [CategoryName],
-                                 [isDeleted]
-                                 
+                                 Name,
+                                 isDelete
+                                 )
                                 VALUES
                                 (
                                  :Name,
-                                 :false
+                                  false
                                 ) ";
 
-            await _connection.ExecuteAsync(sql, category);
+            _connection.Execute(sql, new {categoryRequestDto.Name}   );
+
+            var category = new Category
+            {
+                Name = categoryRequestDto.Name,
+                IsDeleted = false
+
+            };
+
             return category;
         }
-
-
+         
         public async Task Delete(int Id)
         {
             var sql = "DELETE FROM Category WHERE Id = :Id";
@@ -45,18 +52,18 @@ namespace Task3.Repositories
 
 
 
-        public async Task<List<Category>> GetAll()
+        public List<Category> GetAll()
         {
-            var sql = @"SELECT * FROM Category";
+            var sql = @"select*from public.category";
 
-            return (await _connection.QueryAsync<Category>(sql)).ToList();
+            return (_connection.Query<Category>(sql)).ToList();
         }
-         
 
-        public async Task<Category> GetById(int Id)
+
+        public Category GetById(int Id)
         {
-            var sql = @"SELECT * FROM Category WHERE Id = :Id";
-            return await _connection.QueryFirstOrDefaultAsync<Category>(sql, new { Id });
+            var sql = @"SELECT * FROM public.category WHERE Id = :Id";
+            return _connection.QueryFirstOrDefault<Category>(sql, new { Id });
         }
 
 
